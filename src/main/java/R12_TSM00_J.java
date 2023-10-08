@@ -1,4 +1,4 @@
-// noncompliant, overrides synced method with unsynced method
+//compliant, syncs doSomething method
 class Base {
     public synchronized void doSomething() {
         // ...
@@ -6,7 +6,7 @@ class Base {
 }
 
 class Derived extends Base {
-    @Override public void doSomething() {
+    @Override public synchronized void doSomething() {
         // ...
     }
 }
