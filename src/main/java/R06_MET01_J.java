@@ -1,11 +1,14 @@
 public class R06_MET01_J {
-    // noncompliant, uses assertions to validate method args
+    // compliant, validates by excluding Integer.MIN_VALUE and checks for overflow
     public static int getAbsAdd(int x, int y) {
-        assert x != Integer.MIN_VALUE;
-        assert y != Integer.MIN_VALUE;
+        if (x == Integer.MIN_VALUE || y == Integer.MIN_VALUE) {
+            throw new IllegalArgumentException();
+        }
         int absX = Math.abs(x);
         int absY = Math.abs(y);
-        assert (absX <= Integer.MAX_VALUE - absY);
+        if (absX > Integer.MAX_VALUE - absY) {
+            throw new IllegalArgumentException();
+        }
         return absX + absY;
     }
 }
